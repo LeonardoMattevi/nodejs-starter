@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const Joi = require("joi"); // to validate objects schema
 
 const usersService = require("../services/usersService");
 
@@ -41,7 +42,7 @@ router.get("/:id", (req, res) => {
     });
 });
 router.post("/", (req, res) => {
-  const { error } = validateUser(req.body); // like result.error
+  const { error } = usersService.validateUser(req.body); // like result.error
   if (error) return res.status(400).send(error.details[0].message);
 
   usersService
@@ -58,7 +59,7 @@ router.put("/:id", (req, res) => {
   if (!user)
     return res.status(404).send("The user with the given ID was not founded.");
 
-  const { error } = validateUser(req.body);
+  const { error } = usersService.validateUser(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
   usersService
@@ -85,14 +86,5 @@ router.delete("/:id", (req, res) => {
     });
 });
 
-function validateUser(user) {
-  const schema = {
-    name: Joi.string()
-      .min(3)
-      .required()
-  };
-
-  return Joi.validate(user, schema);
-}
 
 module.exports = router;

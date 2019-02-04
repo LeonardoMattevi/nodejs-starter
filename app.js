@@ -5,9 +5,8 @@ const debug = require("debug")("app:general"); // set DEBUG=app:* || set DEBUG=a
 //const dbDebugger = require('debug')('app:db');
 
 const helmet = require("helmet");
-// const Joi = require("joi");
-const users = require("./routes/users");
-const home = require("./routes/home");
+const usersRoute = require("./routes/users");
+const homeRoute = require("./routes/home");
 const morgan = require("morgan");
 const express = require("express");
 const logger = require("./logger");
@@ -20,8 +19,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(helmet());
-app.use("/api/users", users);
-app.use("/", home);
+app.use("/api/users", usersRoute);
+app.use("/", homeRoute);
 
 app.use(logger);
 app.use(authProvider);

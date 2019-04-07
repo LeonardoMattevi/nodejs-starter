@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
 // model
 exports.User = mongoose.model("User", userSchema);
 
-exports.getConnection = function() {
+exports.getConnection = function () {
   if (mongoose.connection.readyState) return mongoose;
 
   mongoose
@@ -27,6 +27,6 @@ exports.getConnection = function() {
     });
 };
 
-exports.close = function() {
+exports.close = function () {
   mongoose.connection.close();
 };

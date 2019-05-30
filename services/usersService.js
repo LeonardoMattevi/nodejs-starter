@@ -1,30 +1,32 @@
 
 const dbContext = require("../store/dbContext");
-mongoose = dbContext.getConnection();
 
-function UsersService() {
-  this.getUsers = async function () {
+class UsersService {
+  constructor() { }
+  async getUsers () {
     return await dbContext.User.find()
       // .find({ price: { $gte: 10 } })
       // .find({ price: { $in: [10, 15, 20] } })
       // .or([ { price: { $in: [10, 15, 20] } }, { price: null } ])
       // .and([ { price: { $in: [10, 15, 20] } }, { price: null } ])
       // .find()
-      .limit(10)
-      .sort({ name: 1 })
-      .select({ name: 1, tags: 1 });
+      // .sort({ name: 1 })
+      //.select({ name: 1, tags: 1 })
+      .limit(10);
   };
-  this.getUser = async function (id) {
+  async getUser (id) {
     return await dbContext.User.findOne({ _id: id });
   };
-  this.createUser = async function (user) {
+  async createUser (user) {
+    user.creationDate = Date.now();
     let _user = new dbContext.User(user);
     return await _user.save();
   };
-  this.updateUser = async function (id, user) {
+  async updateUser (id, user) {
+    user.modificationDate = Date.now();
     return await dbContext.User.updateOne({ _id: id }, user);
   };
-  this.deleteUser = async function (id) {
+  async deleteUser (id) {
     return await dbContext.User.deleteOne({ _id: id });
   };
 }

@@ -33,6 +33,7 @@ db.on('disconnected', function() {
 mongoose.connect(connectionString + dbName, {
   reconnectTries: Number.MAX_VALUE, // Never stop trying to reconnect
   reconnectInterval: 5000, // Reconnect every 5000ms
+  useNewUrlParser: true
 });
 
 // schemas

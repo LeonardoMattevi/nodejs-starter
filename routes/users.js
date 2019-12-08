@@ -1,72 +1,48 @@
 const express = require("express");
 const router = express.Router();
+const { infoLogger } = require('../middleware/logger');
 
 const usersService = require("../services/usersService");
 const validators = require("../store/validators");
 
 router.get("/", async (req, res) => {
-  let result = null;
-  
-  try {
-    result = await usersService.getUsers();
-    res.send(result);
-  } catch (err) {
-    res.status(err.httpCode || 500).send("Server Error: " + err.message);
-  }
+  infoLogger("asdasd");
+  let result = await usersService.getUsers();
+  res.send(result);
 });
 router.get("/:id", async (req, res) => {
-  let result = null;
-  try {
-    result = await usersService.getUser(req.params.id);
-    if(!result)
-      throw ({ httpCode: 404, message: "The user with the given ID was not founded."});
-      
-    res.send(result);
-  } catch (err) {
-    res.status(err.httpCode || 500).send("Server Error: " + err.message);
-  }
+  let result = await usersService.getUser(req.params.id);
+  if(!result)
+    throw ({ httpCode: 404, message: "The user with the given ID was not founded."});
+    
+  res.send(result);
 });
 router.post("/", async (req, res) => {
-  let result = null;
-  try {
-    const { error } = validators.validateUser(req.body);
-    if (error) 
-      throw ({ httpCode: 400, message: error.details[0].message});
-    
-    result = await usersService.createUser(req.body);
-    res.send(result);
-  } catch(err) {
-    return res.status(err.httpCode || 500).send("Create Error: " + err.message);
-  }
+  const { error } = validators.validateUser(req.body);
+  if (error) 
+    throw ({ httpCode: 400, message: error.details[0].message});
+  
+  let result = await usersService.createUser(req.body);
+  res.send(result);
 });
 router.put("/:id", async (req, res) => {
-  let result = null;
-  try {
-    result = await usersService.getUser(req.params.id);
-    if (!result)
-      throw ({ httpCode: 404, message: "The user with the given ID was not founded."});
+  let result = await usersService.getUser(req.params.id);
+  if (!result)
+    throw ({ httpCode: 404, message: "The user with the given ID was not founded."});
 
-    const { error } = validators.validateUser(req.body);
-    if (error)
-      throw ({ httpCode: 400, message: error.details[0].message});
+  const { error } = validators.validateUser(req.body);
+  if (error)
+    throw ({ httpCode: 400, message: error.details[0].message});
 
-    result = await usersService.updateUser(req.params.id, req.body);
-    res.send(result);
-  } catch(err) {
-    return res.status(err.httpCode || 500).send("Server Error: " + err.message);
-  }
+  result = await usersService.updateUser(req.params.id, req.body);
+  res.send(result);
 });
 router.delete("/:id", async (req, res) => {
-  let result = null;
-  try{
-    result = await usersService.getUser(req.params.id);
-    if (!result)
-      throw ({ httpCode: 404, message: "The user with the given ID was not founded." });
+  let result = await usersService.getUser(req.params.id);
+  if (!result)
+    throw ({ httpCode: 404, message: "The user with the given ID was not founded." });
 
-    result = await usersService.deleteUser(req.params.id);
-    res.send(result);
-  } catch(err) {
-      return res.status(err.httpCode || 500).send("Server Error: " + err.message);
-  }
+  result = await usersService.deleteUser(req.params.id);
+  res.send(result);
 });
 module.exports = router;

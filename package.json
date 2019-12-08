@@ -2,6 +2,10 @@
   "name": "nodejs-starter",
   "version": "1.0.0",
   "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/LeonardoMattevi/nodejs-starter.git"
+  },
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,15 +13,16 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "config": "^3.2.4",
-    "debug": "^4.1.1",
     "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
     "helmet": "^3.21.2",
     "joi": "^14.3.1",
     "mongoose": "^5.7.8",
     "morgan": "^1.9.1",
-    "mustache": "^3.1.0"
+    "mustache": "^3.1.0",
+    "winston": "^3.2.1"
   }
 }

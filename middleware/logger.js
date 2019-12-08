@@ -16,6 +16,9 @@ const transportInfo = [
         maxsize: 30000000, // 30MB
         tailable: true,
         maxFiles:3
+    }),
+    new transports.Console({
+        format: format.simple()
     })
 ];
 const loggerError = createLogger({
@@ -27,17 +30,15 @@ const loggerError = createLogger({
 });
 const loggerInfo = createLogger({
     format: format.combine(
-        format.printf(info => { return info.message + info.date; })
+        format.printf(info => info.message)
     ),
     transports: transportInfo
 });
 module.exports = {
-    infoLogger (message) {
-        loggerInfo.info(message, {      
-            date: new Date().toLocaleString()
-        });
+    infoLogger(message) {
+        loggerInfo.info(message + " | " + new Date().toISOString());
     },
-    errorLogger (err, req, res, next) {
+    errorLogger(err, req, res, next) {
         loggerError.error(err.message, {
             date: new Date().toLocaleString(),
             statusCode: err.statusCode || "500",

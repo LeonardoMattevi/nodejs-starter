@@ -6,7 +6,7 @@ const usersService = require("../services/usersService");
 const validators = require("../store/validators");
 
 router.get("/", async (req, res) => {
-  infoLogger("asdasd");
+  infoLogger("You get all users!");
   let result = await usersService.getUsers();
   res.send(result);
 });

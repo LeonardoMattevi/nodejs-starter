@@ -8,8 +8,8 @@
   },
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "start": "node app.js",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +19,7 @@
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
     "helmet": "^3.21.2",
+    "jest": "^24.9.0",
     "joi": "^14.3.1",
     "mongoose": "^5.7.8",
     "morgan": "^1.9.1",

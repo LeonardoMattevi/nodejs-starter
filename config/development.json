@@ -1,3 +1,4 @@
 {
-    "name": "My Test NodeJs/Express App - Development"
+    "name": "My Test NodeJs/Express App - Development",
+    "mongodbConnectionString": "mongodb://localhost/"
 }

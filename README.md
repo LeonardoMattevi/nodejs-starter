@@ -1,6 +1,6 @@
 # nodejs-starter
 
-Starter project NodeJS with Express/MongoDB/Mustache/Morgan/Helmet
+Starter project NodeJS with Express/MongoDB/Morgan/Winston/Helmet/Jest
 
 ## Install:
 
@@ -9,7 +9,7 @@ Starter project NodeJS with Express/MongoDB/Mustache/Morgan/Helmet
 
 ## Launch app
 
-1. npm update
-2. open new console start mongo and write mongod
-3. into project directory open console and write node app
+1. npm install
+2. mongoDB in localhost
+3. npm start or node app
 4. go to http://localhost:3000/

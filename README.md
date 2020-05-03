@@ -1,6 +1,6 @@
 # nodejs-starter
 
-Starter project NodeJS with Express/MongooseDB/Morgan/Winston/Helmet/Jest
+Starter project NodeJS with Express/MongooseDB/Joy/Winston/Helmet/Jest
 
 ## Install:
 

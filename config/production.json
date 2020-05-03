@@ -1,3 +1,4 @@
 {
-    "name": "My Test NodeJs/Express App - Production"
+    "name": "My Test NodeJs/Express App - Production",
+    "enableAccessLogs": true
 }

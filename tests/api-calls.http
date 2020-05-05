@@ -1,0 +1,37 @@
+@id = 5ca9ac92e2a38a247c20b8a3
+
+GET http://localhost:3000/api/users HTTP/1.1
+content-type: application/json
+
+###
+
+GET http://localhost:3000/api/users/{{id}} HTTP/1.1
+content-type: application/json
+
+###
+
+POST http://localhost:3000/api/users HTTP/1.1
+content-type: application/json
+
+{
+    "firstName": "Leoonardo",
+    "lastName": "Mattevi",
+    "email": "l.m@notanemail.com"
+}
+
+###
+
+PUT http://localhost:3000/api/users/{{id}} HTTP/1.1
+content-type: application/json
+
+{
+    "_id": "{{id}}",
+    "firstName": "Leoonardo",
+    "lastName": "Mattevi",
+    "email": "l.m@notanemail.com"
+}
+
+###
+
+DELETE http://localhost:3000/api/users/{{id}} HTTP/1.1
+content-type: application/json

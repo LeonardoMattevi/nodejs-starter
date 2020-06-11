@@ -5,7 +5,7 @@ const { ADMIN, BASE } = require('../core/roles');
 const authProvider = require("../middleware/authProvider");
 const usersService = require("../services/usersService");
 const { validateCreateUser, validateEditUser } = require("../store/validators");
-const HttpError = require("../store/models/common-models");
+const { HttpError } = require("../models/errors");
 
 router.get("/", authProvider([ADMIN, BASE]), async (req, res) => {
   logger.info("You get all users!");

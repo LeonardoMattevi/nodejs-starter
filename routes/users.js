@@ -2,24 +2,24 @@ const express = require("express");
 const router = express.Router();
 const { logger } = require('../core/logger');
 const { ADMIN, BASE } = require('../core/roles');
-const authProvider = require("../middleware/authProvider");
+const { authentication, authorization } = require("../middleware/authProvider");
 const usersService = require("../services/usersService");
 const { validateCreateUser, validateEditUser } = require("../store/validators");
 const { HttpError } = require("../models/errors");
 
-router.get("/", authProvider([ADMIN, BASE]), async (req, res) => {
+router.get("/", authentication(), authorization([ADMIN, BASE]), async (req, res) => {
   logger.info("You get all users!");
   let result = await usersService.getUsers();
   res.send(result);
 });
-router.get("/:id", authProvider([ADMIN, BASE]), async (req, res) => {
+router.get("/:id", authentication(), authorization([ADMIN, BASE]), async (req, res) => {
   let result = await usersService.getUser(req.params.id);
   if(!result)
     throw new HttpError("The user not found.", 404);
     
   res.send(result);
 });
-router.post("/", authProvider([ADMIN]), async (req, res) => {
+router.post("/", authentication(), authorization([ADMIN]), async (req, res) => {
   const { error } = validateCreateUser(req.body);
   if (error) 
     throw new HttpError(error.details[0].message, 400);
@@ -27,7 +27,7 @@ router.post("/", authProvider([ADMIN]), async (req, res) => {
   let result = await usersService.createUser(req.body);
   res.send(result);
 });
-router.put("/:id", authProvider([ADMIN]), async (req, res) => {
+router.put("/:id", authentication(), authorization([ADMIN]), async (req, res) => {
   const { error } = validateEditUser(req.body);
   if (error)
     throw new HttpError(error.details[0].message, 400);
@@ -44,7 +44,7 @@ router.put("/:id", authProvider([ADMIN]), async (req, res) => {
     result = await usersService.getUser(req.params.id);
   res.send(result);
 });
-router.delete("/:id", authProvider([ADMIN]), async (req, res) => {
+router.delete("/:id", authentication(), authorization([ADMIN]), async (req, res) => {
   let result = await usersService.getUser(req.params.id);
   if (!result)
     throw new HttpError("The user not found.", 404);

@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+    <%- include("partials/header", { header: page.header}) %>
+    <body>
+        <h2><%=page.title%></h2>
+        <p><%=page.description%></p>
+        <% page.links.forEach(function(link){ %>
+            <%- include('partials/components/link', {link: link}) %>
+        <% }); %>
+        <%- include("partials/footer") %>        
+    </body>
+</html>

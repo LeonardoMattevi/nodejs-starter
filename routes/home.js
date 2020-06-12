@@ -1,22 +1,26 @@
 const express = require('express');
-var fs = require('fs');
 const router = express.Router();
-var mustache = require('mustache');
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     const viewModel = {
-        pagePosTitle: 'titolo posizionamento',
-        pageTitle: 'titolo pagina',
-        pageDescription: 'titolo desrizione',
-        link: {
-            url: 'https://www.google.it/',
-            label: 'link a google',
-            target: '_blank'
+        page: {
+            header: {
+                title: 'header title'
+            },
+            title: 'page title',
+            description: 'page description',
+            links: [{
+                url: 'https://www.google.it',
+                label: 'google link',
+                target: '_blank'
+            }, {
+                url: 'https://www.google.it?p=2',
+                label: 'google link2',
+                target: '_blank'
+            }]
         }
     }
-    var page = fs.readFileSync('./views/home.html', "utf8");
-    var html = mustache.to_html(page, viewModel);
-
-    res.send(html);
+    
+    res.render("home", viewModel);
 });
 module.exports = router;

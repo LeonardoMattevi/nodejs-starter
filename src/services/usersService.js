@@ -1,9 +1,9 @@
 
-const dbContext = require("../store/dbContext");
+const dbContext = require('../store/dbContext');
 
 class UsersService {
   constructor() { }
-  async getUsers () {
+  async getUsers() {
     return await dbContext.User.find()
       // .find({ price: { $gte: 10 } })
       // .find({ price: { $in: [10, 15, 20] } })
@@ -11,23 +11,24 @@ class UsersService {
       // .and([ { price: { $in: [10, 15, 20] } }, { price: null } ])
       // .find()
       // .sort({ name: 1 })
-      //.select({ name: 1, tags: 1 })
+      // .select({ name: 1, tags: 1 })
       .limit(10);
-  };
-  async getUser (id) {
+  }
+  async getUser(id) {
     return await dbContext.User.findOne({ _id: id });
-  };
-  async createUser (user) {
+  }
+  async createUser(user) {
     user.creationDate = Date.now();
-    let _user = new dbContext.User(user);
+    const _user = new dbContext.User(user);
+
     return await _user.save();
-  };
-  async updateUser (id, user) {
+  }
+  async updateUser(id, user) {
     user.modificationDate = Date.now();
     return await dbContext.User.updateOne({ _id: id }, user);
-  };
-  async deleteUser (id) {
+  }
+  async deleteUser(id) {
     return await dbContext.User.deleteOne({ _id: id });
-  };
+  }
 }
 module.exports = new UsersService();
